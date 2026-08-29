@@ -210,6 +210,7 @@
     padding-right:4px;
     scrollbar-width:thin;
   }
+  nav.toc[hidden]{ display:none; }
   nav.toc a{
     text-decoration:none;
     color:var(--ink-soft);
@@ -545,6 +546,19 @@
   }
   p.flow .arrow{ background:none; padding:0; color:var(--ink-faint); }
 
+  .jump-links{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 0; }
+  .jump-links a{
+    font-family:"IBM Plex Mono", monospace;
+    font-size:12px;
+    background:var(--surface-alt);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:6px 12px;
+    color:var(--ink);
+    text-decoration:none;
+  }
+  .jump-links a:hover{ border-color:var(--accent-2); color:var(--accent-2); }
+
   /* ---------- knowledge tab specifics ---------- */
   ul.notes{
     list-style:disc;
@@ -627,7 +641,8 @@
 
     <div class="tabswitch" role="tablist">
       <button type="button" class="tab-btn active" data-tab="roadmap" role="tab" aria-selected="true">Lộ trình</button>
-      <button type="button" class="tab-btn" data-tab="knowledge" role="tab" aria-selected="false">Tài liệu &amp; Ví dụ</button>
+      <button type="button" class="tab-btn" data-tab="bylevel" role="tab" aria-selected="false">Theo cấp bậc</button>
+      <button type="button" class="tab-btn" data-tab="knowledge" role="tab" aria-selected="false">Theo chủ đề</button>
     </div>
 
     <div class="overall-progress" id="progress-block">
@@ -660,6 +675,14 @@
       <a href="#kt-ky-nang-mem"><span class="toprow"><span class="num">11</span><span>Kỹ năng mềm &amp; Career Ladder</span></span></a>
     </nav>
 
+    <nav class="toc" id="toc-bylevel" hidden>
+      <a href="#bl-intern"><span class="toprow"><span class="num">01</span><span>Intern</span></span></a>
+      <a href="#bl-junior"><span class="toprow"><span class="num">02</span><span>Junior</span></span></a>
+      <a href="#bl-middle"><span class="toprow"><span class="num">03</span><span>Middle</span></span></a>
+      <a href="#bl-senior"><span class="toprow"><span class="num">04</span><span>Senior</span></span></a>
+      <a href="#bl-staff"><span class="toprow"><span class="num">05</span><span>Staff &amp; Lãnh đạo kỹ thuật</span></span></a>
+    </nav>
+
     <button class="reset-btn" id="reset-btn" type="button">Đặt lại tiến độ</button>
   </aside>
 
@@ -667,7 +690,7 @@
     <header class="hero">
       <span class="label eyebrow">Dành cho leader hướng dẫn intern / fresher</span>
       <h1>Bản đồ đường đi từ intern đến software engineer thực chiến</h1>
-      <p class="lede">Tổng hợp kiến thức chuyên môn — sắp xếp theo đúng lộ trình sự nghiệp <strong>Intern → Junior → Middle → Senior → Staff</strong>, thay vì theo từng công nghệ tách biệt, để dễ theo dõi và tự biết mình đang ở đâu. Mỗi cấp bậc gộp đủ Frontend, Backend, DevOps, AI, Thuật toán, Software Engineering cần cho đúng giai đoạn đó, kết thúc bằng <strong>tiêu chí hoàn thành (Exit Criteria)</strong> rõ ràng. Tab <b>Lộ trình</b> để theo dõi tiến độ theo cấp bậc, tab <b>Tài liệu &amp; Ví dụ</b> để tra cứu nhanh theo chủ đề công nghệ.</p>
+      <p class="lede">Tổng hợp kiến thức chuyên môn — sắp xếp theo đúng lộ trình sự nghiệp <strong>Intern → Junior → Middle → Senior → Staff</strong>, thay vì theo từng công nghệ tách biệt, để dễ theo dõi và tự biết mình đang ở đâu. Mỗi cấp bậc gộp đủ Frontend, Backend, DevOps, AI, Thuật toán, Software Engineering cần cho đúng giai đoạn đó, kết thúc bằng <strong>tiêu chí hoàn thành (Exit Criteria)</strong> rõ ràng. Ba cách để dùng trang này: tab <b>Lộ trình</b> để tick tiến độ theo cấp bậc, tab <b>Theo cấp bậc</b> để xem nhanh "ở level của tôi cần đọc gì", và tab <b>Theo chủ đề</b> để tra cứu sâu tóm tắt/ví dụ/nguồn học theo từng công nghệ.</p>
       <div class="usage-note">
         <span class="dot" aria-hidden="true"></span>
         <span>Tick mục để theo dõi tiến độ — dữ liệu lưu trên trình duyệt này. Chip <b>Cơ bản</b>/<b>Nâng cao</b> gợi ý việc nào làm trước trong cùng một cấp bậc; ô <b>Tiêu chí hoàn thành</b> ở cuối mỗi cấp bậc mới là thước đo thật để biết đã sẵn sàng lên cấp tiếp theo hay chưa. Đọc kỹ Mục 00 trước khi bắt đầu.</span>
@@ -1970,6 +1993,237 @@ Dùng PostgreSQL với Prisma ORM.
     </div>
     <!-- ================= /PANEL 2 ================= -->
 
+    <!-- ================= PANEL 3: THEO CẤP BẬC ================= -->
+    <div class="panel" id="panel-bylevel" hidden>
+      <p class="usage-note" style="margin:0 0 32px;">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Đây là bản đồ ngược lại của tab <b>Lộ trình</b>: thay vì đi theo checklist, bạn xem nhanh <b>cấp bậc hiện tại của mình cần đọc những chủ đề nào</b>. Bấm vào một chủ đề để nhảy sang tóm tắt kiến thức đầy đủ ở tab Theo chủ đề.</span>
+      </p>
+
+      <section class="leg" id="bl-intern">
+        <div class="leg-head"><span class="leg-num">01</span><h2>Intern</h2></div>
+        <p class="leg-intro">Giai đoạn làm quen: môi trường, quy trình, và những viên gạch đầu tiên.</p>
+        <div class="waypoint">
+          <h3>Trọng tâm kiến thức</h3>
+          <div class="jump-links">
+            <a href="#kt-nen-tang" class="jump-link" data-jump="kt-nen-tang">Nền tảng</a>
+            <a href="#kt-product-mindset" class="jump-link" data-jump="kt-product-mindset">Product &amp; Engineering Mindset</a>
+            <a href="#kt-frontend" class="jump-link" data-jump="kt-frontend">Frontend Engineering</a>
+            <a href="#kt-backend" class="jump-link" data-jump="kt-backend">Backend &amp; Dữ liệu</a>
+          </div>
+        </div>
+        <div class="waypoint">
+          <h3>Ví dụ tiêu biểu ở level này</h3>
+          <span class="code-cap">So sánh Big-O: tìm kiếm tuyến tính vs nhị phân</span>
+          <pre class="code-block"><code>function linearSearch(arr, target) {
+  for (let i = 0; i &lt; arr.length; i++) {
+    if (arr[i] === target) return i;
+  }
+  return -1;
+}
+
+function binarySearch(arr, target) {
+  let lo = 0, hi = arr.length - 1;
+  while (lo &lt;= hi) {
+    const mid = (lo + hi) &gt;&gt; 1;
+    if (arr[mid] === target) return mid;
+    if (arr[mid] &lt; target) lo = mid + 1;
+    else hi = mid - 1;
+  }
+  return -1;
+}</code></pre>
+        </div>
+        <div class="callout exit">
+          <span class="label callout-label">Mốc cần đạt trước khi lên Junior</span>
+          <ul>
+            <li>Có repo cá nhân với Git workflow chuẩn, ít nhất một Pull Request được review.</li>
+            <li>Tự giải thích được request lifecycle và độ phức tạp cơ bản (Big-O) của một đoạn code.</li>
+            <li>Dựng được một trang/API CRUD đơn giản bằng React + REST API + SQL.</li>
+            <li>Biết dùng AI coding assistant nhưng luôn tự đọc hiểu code trước khi commit.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="leg" id="bl-junior">
+        <div class="leg-head"><span class="leg-num">02</span><h2>Junior</h2></div>
+        <p class="leg-intro">Tự chủ được một task/feature nhỏ mà không cần cầm tay từng bước.</p>
+        <div class="waypoint">
+          <h3>Trọng tâm kiến thức</h3>
+          <div class="jump-links">
+            <a href="#kt-frontend" class="jump-link" data-jump="kt-frontend">Frontend Engineering</a>
+            <a href="#kt-backend" class="jump-link" data-jump="kt-backend">Backend &amp; Dữ liệu</a>
+            <a href="#kt-devops" class="jump-link" data-jump="kt-devops">DevOps &amp; Production Eng.</a>
+            <a href="#kt-software-engineering" class="jump-link" data-jump="kt-software-engineering">Software Engineering Practice</a>
+            <a href="#kt-end-to-end" class="jump-link" data-jump="kt-end-to-end">End-to-End Ownership</a>
+            <a href="#kt-ai" class="jump-link" data-jump="kt-ai">AI Engineering</a>
+          </div>
+        </div>
+        <div class="waypoint">
+          <h3>Ví dụ tiêu biểu ở level này</h3>
+          <span class="code-cap">Middleware xác thực JWT trong Express</span>
+          <pre class="code-block"><code>const jwt = require("jsonwebtoken");
+
+function requireAuth(req, res, next) {
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) return res.status(401).json({ error: "Missing token" });
+
+  try {
+    req.user = jwt.verify(token, process.env.JWT_SECRET);
+    next();
+  } catch {
+    res.status(401).json({ error: "Invalid token" });
+  }
+}
+
+app.get("/api/profile", requireAuth, (req, res) => {
+  res.json({ userId: req.user.sub });
+});</code></pre>
+        </div>
+        <div class="callout exit">
+          <span class="label callout-label">Mốc cần đạt trước khi lên Middle</span>
+          <ul>
+            <li>Tự hoàn thành một feature nhỏ từ yêu cầu rõ ràng đến production mà không cần hướng dẫn từng bước.</li>
+            <li>Viết được unit/integration test cơ bản và áp dụng bảo mật nền tảng (OWASP, validate input).</li>
+            <li>Tự debug được các lỗi phổ biến ở cả Frontend lẫn Backend.</li>
+            <li>Review được Pull Request của người khác theo một checklist cơ bản.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="leg" id="bl-middle">
+        <div class="leg-head"><span class="leg-num">03</span><h2>Middle</h2></div>
+        <p class="leg-intro">Sở hữu trọn vẹn một feature, bắt đầu ảnh hưởng tới quyết định thiết kế.</p>
+        <div class="waypoint">
+          <h3>Trọng tâm kiến thức</h3>
+          <div class="jump-links">
+            <a href="#kt-backend" class="jump-link" data-jump="kt-backend">Backend &amp; Dữ liệu</a>
+            <a href="#kt-frontend" class="jump-link" data-jump="kt-frontend">Frontend Engineering</a>
+            <a href="#kt-software-engineering" class="jump-link" data-jump="kt-software-engineering">Software Engineering Practice</a>
+            <a href="#kt-devops" class="jump-link" data-jump="kt-devops">DevOps &amp; Production Eng.</a>
+            <a href="#kt-ai" class="jump-link" data-jump="kt-ai">AI Engineering</a>
+            <a href="#kt-end-to-end" class="jump-link" data-jump="kt-end-to-end">End-to-End Ownership</a>
+            <a href="#kt-system-design" class="jump-link" data-jump="kt-system-design">System Design</a>
+            <a href="#kt-product-mindset" class="jump-link" data-jump="kt-product-mindset">Product &amp; Engineering Mindset</a>
+          </div>
+        </div>
+        <div class="waypoint">
+          <h3>Ví dụ tiêu biểu ở level này</h3>
+          <span class="code-cap">Refactor giảm coupling: tách tính toán khỏi lưu trữ và thông báo</span>
+          <pre class="code-block"><code>// Trước: một hàm làm quá nhiều việc, khó test, khó tái dùng
+function checkout(cart) {
+  const total = cart.items.reduce((s, i) => s + i.price * i.qty, 0);
+  if (total &gt; 1000000) total *= 0.9;
+  db.query("INSERT INTO orders ...", [total]);
+  emailClient.send(cart.userEmail, "Đơn hàng đã tạo");
+  return total;
+}
+
+// Sau: tách rõ tính toán - lưu trữ - thông báo, mỗi phần test riêng được
+function calculateTotal(cart) {
+  const raw = cart.items.reduce((s, i) => s + i.price * i.qty, 0);
+  return raw &gt; 1000000 ? raw * 0.9 : raw;
+}
+
+async function checkout(cart, { orderRepo, notifier }) {
+  const total = calculateTotal(cart);
+  await orderRepo.create({ cart, total });
+  await notifier.orderCreated(cart.userEmail);
+  return total;
+}</code></pre>
+        </div>
+        <div class="callout exit">
+          <span class="label callout-label">Mốc cần đạt trước khi lên Senior</span>
+          <ul>
+            <li>Tự đi từ yêu cầu đến production cho một feature vừa và lớn, refactor an toàn nhờ test.</li>
+            <li>Đọc được dashboard/log để debug sự cố, tích hợp được một tính năng AI và giải thích chi phí/latency của nó.</li>
+            <li>Giải thích được trade-off của một quyết định thiết kế (System Design Level 1–2).</li>
+            <li>Review code người khác ở mức kiến trúc, không chỉ đúng/sai cú pháp.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="leg" id="bl-senior">
+        <div class="leg-head"><span class="leg-num">04</span><h2>Senior</h2></div>
+        <p class="leg-intro">Sở hữu một hệ thống/domain, quyết định kiến trúc, mentor người khác.</p>
+        <div class="waypoint">
+          <h3>Trọng tâm kiến thức</h3>
+          <div class="jump-links">
+            <a href="#kt-system-design" class="jump-link" data-jump="kt-system-design">System Design</a>
+            <a href="#kt-software-engineering" class="jump-link" data-jump="kt-software-engineering">Software Engineering Practice</a>
+            <a href="#kt-devops" class="jump-link" data-jump="kt-devops">DevOps &amp; Production Eng.</a>
+            <a href="#kt-ai" class="jump-link" data-jump="kt-ai">AI Engineering</a>
+            <a href="#kt-product-mindset" class="jump-link" data-jump="kt-product-mindset">Product &amp; Engineering Mindset</a>
+          </div>
+        </div>
+        <div class="waypoint">
+          <h3>Ví dụ tiêu biểu ở level này</h3>
+          <span class="code-cap">Rate limiter kiểu token bucket</span>
+          <pre class="code-block"><code>class TokenBucket {
+  constructor(capacity, refillPerSec) {
+    this.capacity = capacity;
+    this.tokens = capacity;
+    this.refillPerSec = refillPerSec;
+    this.last = Date.now();
+  }
+
+  allow() {
+    const now = Date.now();
+    const elapsed = (now - this.last) / 1000;
+    this.tokens = Math.min(this.capacity, this.tokens + elapsed * this.refillPerSec);
+    this.last = now;
+
+    if (this.tokens &gt;= 1) {
+      this.tokens -= 1;
+      return true;
+    }
+    return false;
+  }
+}</code></pre>
+        </div>
+        <div class="callout exit">
+          <span class="label callout-label">Mốc cần đạt trước khi lên Staff</span>
+          <ul>
+            <li>Nhận một yêu cầu mơ hồ, tự đặt câu hỏi làm rõ, thiết kế kiến trúc, chỉ ra đánh đổi (kể cả chi phí).</li>
+            <li>Bảo vệ được quyết định của mình trước phản biện, và mentor được người khác.</li>
+            <li>Đánh giá được chất lượng một tính năng AI bằng số liệu, không chỉ cảm quan.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="leg" id="bl-staff">
+        <div class="leg-head"><span class="leg-num">05</span><h2>Staff &amp; Lãnh đạo kỹ thuật</h2></div>
+        <p class="leg-intro">Không code full-time nữa theo nghĩa cũ — thành công đo bằng ảnh hưởng liên team.</p>
+        <div class="waypoint">
+          <h3>Trọng tâm kiến thức</h3>
+          <div class="jump-links">
+            <a href="#kt-software-engineering" class="jump-link" data-jump="kt-software-engineering">Software Engineering Practice (RFC)</a>
+            <a href="#kt-ky-nang-mem" class="jump-link" data-jump="kt-ky-nang-mem">Kỹ năng mềm &amp; Career Ladder (ADR)</a>
+          </div>
+        </div>
+        <div class="waypoint">
+          <h3>Ví dụ tiêu biểu ở level này</h3>
+          <span class="code-cap">Mẫu ADR ngắn gọn</span>
+          <pre class="code-block"><code># ADR-001: Chọn PostgreSQL thay vì MongoDB cho dịch vụ Order
+
+## Bối cảnh
+Dữ liệu đơn hàng có quan hệ chặt (order - item - payment),
+cần transaction để đảm bảo tính toàn vẹn.
+
+## Quyết định
+Dùng PostgreSQL với Prisma ORM.
+
+## Hệ quả
++ Đảm bảo tính toàn vẹn dữ liệu qua transaction
+- Cần thiết kế schema kỹ hơn trước khi code, khó đổi linh hoạt như NoSQL</code></pre>
+        </div>
+        <div class="callout exit">
+          <span class="label callout-label">Mốc cần đạt ở Staff</span>
+          <p>Tôi viết RFC/Design Doc cho các sáng kiến ảnh hưởng nhiều team, chủ động mời phản biện sớm, và có ít nhất một kỹ sư khác lên level tiếp theo một phần nhờ mình mentor.</p>
+        </div>
+      </section>
+    </div>
+    <!-- ================= /PANEL 3 ================= -->
+
   </main>
 </div>
 
@@ -2048,25 +2302,42 @@ Dùng PostgreSQL với Prisma ORM.
   }
   setupScrollSpy('toc-roadmap');
   setupScrollSpy('toc-knowledge');
+  setupScrollSpy('toc-bylevel');
 
   var tabBtns = Array.prototype.slice.call(document.querySelectorAll('.tab-btn'));
-  var panels = { roadmap: document.getElementById('panel-roadmap'), knowledge: document.getElementById('panel-knowledge') };
-  var navs = { roadmap: document.getElementById('toc-roadmap'), knowledge: document.getElementById('toc-knowledge') };
+  var panels = { roadmap: document.getElementById('panel-roadmap'), knowledge: document.getElementById('panel-knowledge'), bylevel: document.getElementById('panel-bylevel') };
+  var navs = { roadmap: document.getElementById('toc-roadmap'), knowledge: document.getElementById('toc-knowledge'), bylevel: document.getElementById('toc-bylevel') };
   var progressBlock = document.getElementById('progress-block');
+
+  function switchTab(tab){
+    tabBtns.forEach(function(b){
+      var isActive = (b.getAttribute('data-tab') === tab);
+      b.classList.toggle('active', isActive);
+      b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+    Object.keys(panels).forEach(function(k){ if(panels[k]) panels[k].hidden = (k !== tab); });
+    Object.keys(navs).forEach(function(k){ if(navs[k]) navs[k].hidden = (k !== tab); });
+    if(progressBlock) progressBlock.hidden = (tab !== 'roadmap');
+    if(resetBtn) resetBtn.hidden = (tab !== 'roadmap');
+  }
 
   tabBtns.forEach(function(btn){
     btn.addEventListener('click', function(){
-      var tab = btn.getAttribute('data-tab');
-      tabBtns.forEach(function(b){
-        var isActive = (b === btn);
-        b.classList.toggle('active', isActive);
-        b.setAttribute('aria-selected', isActive ? 'true' : 'false');
-      });
-      Object.keys(panels).forEach(function(k){ if(panels[k]) panels[k].hidden = (k !== tab); });
-      Object.keys(navs).forEach(function(k){ if(navs[k]) navs[k].hidden = (k !== tab); });
-      if(progressBlock) progressBlock.hidden = (tab !== 'roadmap');
-      if(resetBtn) resetBtn.hidden = (tab !== 'roadmap');
+      switchTab(btn.getAttribute('data-tab'));
       window.scrollTo({ top: 0, behavior: 'auto' });
+    });
+  });
+
+  var jumpLinks = Array.prototype.slice.call(document.querySelectorAll('.jump-link'));
+  jumpLinks.forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var targetId = a.getAttribute('data-jump');
+      switchTab('knowledge');
+      requestAnimationFrame(function(){
+        var el = document.getElementById(targetId);
+        if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
     });
   });
 })();
