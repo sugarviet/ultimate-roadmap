@@ -448,7 +448,7 @@
       <span class="stat">Khung đánh giá 7 tầng</span>
       <span class="stat">Assessment tree Junior→Senior/Staff</span>
       <span class="stat">Red flags &amp; Strong signals</span>
-      <span class="stat">Thang điểm 1–5</span>
+      <span class="stat">Thang điểm 1–5 chuẩn hoá</span>
       <span class="stat">Khung trả lời STAR</span>
     </div>
   </header>
@@ -512,6 +512,22 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
         </table>
       </div>
       <p style="margin:12px 0 0; font-size:13px; color:var(--ink-faint);">Ở Staff, "Behavioral/Leadership" gộp cả nhóm câu hỏi <span class="lvl-tag subleader" style="margin:0 2px;">Lãnh đạo con người</span> trong mục Staff bên dưới — phần <span class="lvl-tag substrat" style="margin:0 2px;">Chiến lược kỹ thuật</span> tính vào System Design/Production.</p>
+    </div>
+
+    <div class="framework-card">
+      <h3 style="margin:0 0 10px; font-size:17px; font-family:'Fraunces', Georgia, serif;">Chuẩn thang điểm chung (1–5)</h3>
+      <p style="margin:0 0 10px; font-size:13.5px; color:var(--ink-soft);">Mọi bảng điểm trong trang này — câu hỏi kiến thức, coding, debugging — đều map về cùng 5 mức ý nghĩa dưới đây. Khi hai người phỏng vấn cùng chấm một ứng viên, việc dùng chung một thang giúp điểm số có thể so sánh được với nhau thay vì mỗi người hiểu "4 điểm" theo một cách khác.</p>
+      <div class="weight-table-wrap">
+        <table class="weight-table">
+          <tr><th>Điểm</th><th style="text-align:left;">Ý nghĩa chung</th></tr>
+          <tr><td>1</td><td style="text-align:left;">Không biết / hiểu sai</td></tr>
+          <tr><td>2</td><td style="text-align:left;">Biết định nghĩa (definition)</td></tr>
+          <tr><td>3</td><td style="text-align:left;">Áp dụng được (apply) — làm đúng trong tình huống chuẩn</td></tr>
+          <tr><td>4</td><td style="text-align:left;">Debug / trade-off / production — xử lý được tình huống thực tế, edge case</td></tr>
+          <tr><td>5</td><td style="text-align:left;">Thiết kế / dẫn dắt / mentor (design/lead/mentor) — tư duy ở quy mô hệ thống hoặc tổ chức</td></tr>
+        </table>
+      </div>
+      <p style="margin:12px 0 0; font-size:13px; color:var(--ink-faint);">Mỗi bảng điểm riêng của từng câu hỏi (bên dưới) diễn giải 5 mức này theo đúng nội dung câu hỏi đó — nhưng luôn giữ đúng "tinh thần" của mức tương ứng ở đây.</p>
     </div>
   </section>
 
@@ -2360,6 +2376,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
       <p class="coding-field"><b>Cách tiếp cận:</b> Duyệt từ cuối chuỗi về đầu và nối lại, hoặc dùng hai con trỏ đầu/cuối hoán đổi dần vào giữa.</p>
       <p class="coding-field"><b>Độ phức tạp:</b> O(n) thời gian, O(n) hoặc O(1) bộ nhớ tuỳ cách cài đặt.</p>
       <p class="coding-field"><b>Follow-up:</b> Làm không dùng hàm dựng sẵn (<code>split('').reverse().join('')</code>).</p>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Không code được</td></tr><tr><td>2</td><td>Dùng hàm dựng sẵn nhưng không giải thích được cách hoạt động</td></tr><tr><td>3</td><td>Tự cài đặt đúng bằng vòng lặp/con trỏ</td></tr><tr><td>4</td><td>Làm được không dùng hàm dựng sẵn, giải thích đúng độ phức tạp</td></tr><tr><td>5</td><td>Tối ưu bộ nhớ (in-place) và xử lý đúng ký tự Unicode/emoji</td></tr></table></div>
     </article>
 
     <article class="coding-card">
@@ -2368,6 +2385,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
       <p class="coding-field"><b>Cách tiếp cận:</b> Dùng hai con trỏ đầu/cuối tiến dần vào giữa, so sánh từng cặp ký tự.</p>
       <p class="coding-field"><b>Độ phức tạp:</b> O(n) thời gian, O(1) bộ nhớ.</p>
       <p class="coding-field"><b>Follow-up:</b> Bỏ qua khoảng trắng và không phân biệt hoa/thường (ví dụ "A man a plan a canal Panama").</p>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Không giải được</td></tr><tr><td>2</td><td>Chỉ xử lý case đơn giản (chữ thường, không khoảng trắng)</td></tr><tr><td>3</td><td>Giải đúng bằng hai con trỏ</td></tr><tr><td>4</td><td>Xử lý được khoảng trắng và không phân biệt hoa/thường</td></tr><tr><td>5</td><td>Tối ưu one-pass và chuẩn hoá Unicode đúng cách</td></tr></table></div>
     </article>
 
     <article class="coding-card">
@@ -2376,6 +2394,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
       <p class="coding-field"><b>Cách tiếp cận:</b> Duyệt mảng một lượt, dùng object/Map làm bộ đếm theo key là giá trị phần tử.</p>
       <p class="coding-field"><b>Độ phức tạp:</b> O(n) thời gian, O(k) bộ nhớ với k là số giá trị khác nhau.</p>
       <p class="coding-field"><b>Follow-up:</b> Tìm phần tử xuất hiện nhiều nhất (và xử lý khi có nhiều phần tử đồng hạng).</p>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Không giải được</td></tr><tr><td>2</td><td>Dùng vòng lặp lồng nhau O(n²)</td></tr><tr><td>3</td><td>Dùng object/map đúng, đạt O(n)</td></tr><tr><td>4</td><td>Tìm được phần tử nhiều nhất, xử lý đúng khi đồng hạng</td></tr><tr><td>5</td><td>Tổng quát hoá thành hàm tái sử dụng cho nhiều loại input khác nhau</td></tr></table></div>
     </article>
 
     <article class="coding-card">
@@ -2384,6 +2403,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
       <p class="coding-field"><b>Cách tiếp cận:</b> Duyệt từng phần tử; nếu là mảng thì gọi đệ quy và cộng dồn kết quả, nếu là số thì cộng trực tiếp.</p>
       <p class="coding-field"><b>Độ phức tạp:</b> O(n) theo tổng số phần tử ở mọi cấp.</p>
       <p class="coding-field"><b>Follow-up:</b> Xử lý mảng lồng sâu không giới hạn cấp mà không bị stack overflow (gợi ý: chuyển sang lặp dùng stack thủ công).</p>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Không giải được</td></tr><tr><td>2</td><td>Chỉ giải được với mảng lồng nông (1–2 cấp)</td></tr><tr><td>3</td><td>Giải đúng đệ quy tổng quát</td></tr><tr><td>4</td><td>Xử lý được mảng lồng sâu không giới hạn mà không stack overflow</td></tr><tr><td>5</td><td>So sánh được đánh đổi giữa đệ quy và cài đặt lặp dùng stack thủ công</td></tr></table></div>
     </article>
 
     <article class="coding-card">
@@ -2392,6 +2412,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
       <p class="coding-field"><b>Cách tiếp cận:</b> Dùng array nội bộ làm nơi lưu trữ, các thao tác đều thao tác ở cuối mảng.</p>
       <p class="coding-field"><b>Độ phức tạp:</b> O(1) cho mỗi thao tác push/pop/peek.</p>
       <p class="coding-field"><b>Follow-up:</b> Dùng Stack vừa viết để kiểm tra một chuỗi dấu ngoặc có hợp lệ (balanced) không.</p>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Không giải được</td></tr><tr><td>2</td><td>Cài đặt thiếu một trong các thao tác cơ bản</td></tr><tr><td>3</td><td>Cài đặt đủ push/pop/peek đúng O(1)</td></tr><tr><td>4</td><td>Dùng Stack giải được bài kiểm tra ngoặc hợp lệ</td></tr><tr><td>5</td><td>Mở rộng cho nhiều loại ngoặc và báo đúng vị trí ký tự gây lỗi</td></tr></table></div>
     </article>
 
     <div class="coding-level-head"><h3>Junior</h3><span>5 bài</span></div>
@@ -2402,6 +2423,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
       <p class="coding-field"><b>Cách tiếp cận:</b> Dùng <code>setTimeout</code>/<code>clearTimeout</code> — mỗi lần hàm được gọi lại thì huỷ timer cũ và đặt timer mới.</p>
       <p class="coding-field"><b>Độ phức tạp:</b> O(1) cho mỗi lần gọi.</p>
       <p class="coding-field"><b>Follow-up:</b> Thêm tuỳ chọn gọi ngay ở lần đầu tiên (leading edge) thay vì luôn đợi hết delay.</p>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Không giải được</td></tr><tr><td>2</td><td>Giải được nhưng leak timer (không clear đúng cách)</td></tr><tr><td>3</td><td>Cài đặt đúng debounce cơ bản</td></tr><tr><td>4</td><td>Thêm được tuỳ chọn leading edge</td></tr><tr><td>5</td><td>Xử lý đúng cả cancel/flush và giải thích được use case thực tế phù hợp</td></tr></table></div>
     </article>
 
     <article class="coding-card">
@@ -2410,6 +2432,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
       <p class="coding-field"><b>Cách tiếp cận:</b> Đệ quy duyệt qua từng phần tử, nếu gặp mảng con thì gọi đệ quy và gộp kết quả; hoặc dùng stack để làm phẳng theo kiểu lặp.</p>
       <p class="coding-field"><b>Độ phức tạp:</b> O(n) theo tổng số phần tử ở mọi cấp.</p>
       <p class="coding-field"><b>Follow-up:</b> Thêm tham số giới hạn độ sâu làm phẳng (giống <code>Array.flat(depth)</code>).</p>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Không giải được</td></tr><tr><td>2</td><td>Chỉ làm phẳng được 1–2 cấp cứng</td></tr><tr><td>3</td><td>Đệ quy tổng quát đúng mọi độ sâu</td></tr><tr><td>4</td><td>Thêm được tham số giới hạn độ sâu làm phẳng</td></tr><tr><td>5</td><td>Cài đặt thêm phiên bản iterative dùng stack, so sánh trade-off với đệ quy</td></tr></table></div>
     </article>
 
     <article class="coding-card">
@@ -2418,6 +2441,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
       <p class="coding-field"><b>Cách tiếp cận:</b> Đệ quy duyệt qua từng thuộc tính, xử lý riêng cho array, object, và giá trị nguyên thuỷ (copy trực tiếp).</p>
       <p class="coding-field"><b>Độ phức tạp:</b> O(n) theo tổng số node trong cấu trúc dữ liệu.</p>
       <p class="coding-field"><b>Follow-up:</b> Xử lý object có tham chiếu vòng (circular reference) mà không bị lặp vô hạn.</p>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Không giải được</td></tr><tr><td>2</td><td>Chỉ clone nông (shallow copy)</td></tr><tr><td>3</td><td>Đệ quy clone đúng nested object/array</td></tr><tr><td>4</td><td>Xử lý đúng trường hợp circular reference</td></tr><tr><td>5</td><td>Xử lý thêm các kiểu đặc biệt (Date, Map, Set) đúng cách</td></tr></table></div>
     </article>
 
     <article class="coding-card">
@@ -2426,6 +2450,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
       <p class="coding-field"><b>Cách tiếp cận:</b> Dùng vòng lặp hoặc đệ quy với <code>await</code>, bắt lỗi bằng try/catch và gọi lại hàm tới khi thành công hoặc hết số lần thử.</p>
       <p class="coding-field"><b>Độ phức tạp:</b> O(N) lần gọi tối đa, không tính thời gian chờ.</p>
       <p class="coding-field"><b>Follow-up:</b> Thêm exponential backoff (thời gian chờ tăng dần) giữa các lần retry.</p>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Không giải được</td></tr><tr><td>2</td><td>Retry cố định số lần nhưng bắt lỗi sai cách</td></tr><tr><td>3</td><td>Cài đặt đúng retry với async/await</td></tr><tr><td>4</td><td>Thêm được exponential backoff</td></tr><tr><td>5</td><td>Thêm giới hạn tổng thời gian (timeout) và jitter để tránh thundering herd</td></tr></table></div>
     </article>
 
     <article class="coding-card">
@@ -2434,6 +2459,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
       <p class="coding-field"><b>Cách tiếp cận:</b> Tính <code>totalPages = Math.ceil(totalItems / pageSize)</code>, quản lý <code>currentPage</code> bằng state, render danh sách nút trang tương ứng.</p>
       <p class="coding-field"><b>Độ phức tạp:</b> O(totalPages) để render danh sách nút.</p>
       <p class="coding-field"><b>Follow-up:</b> Xử lý khi <code>totalItems</code> giảm (ví dụ sau khi xoá item) khiến <code>currentPage</code> đang trỏ tới trang không còn tồn tại.</p>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Không giải được</td></tr><tr><td>2</td><td>Tính sai totalPages hoặc không xử lý edge case (0 item)</td></tr><tr><td>3</td><td>Component chạy đúng cơ bản</td></tr><tr><td>4</td><td>Xử lý đúng khi totalItems đổi khiến currentPage lệch</td></tr><tr><td>5</td><td>Tối ưu re-render và đồng bộ trang hiện tại với URL</td></tr></table></div>
     </article>
 
     <div class="coding-level-head"><h3>Middle</h3><span>5 bài</span></div>
@@ -2444,6 +2470,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
       <p class="coding-field"><b>Cách tiếp cận:</b> Kết hợp Map (giữ thứ tự insertion) — mỗi lần truy cập một key thì xoá và thêm lại để đưa nó về "gần nhất"; khi vượt capacity thì xoá phần tử đầu Map (cũ nhất).</p>
       <p class="coding-field"><b>Độ phức tạp:</b> O(1) cho mỗi thao tác get/put.</p>
       <p class="coding-field"><b>Follow-up:</b> Thêm TTL (thời gian hết hạn) cho từng entry trong cache.</p>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Không giải được</td></tr><tr><td>2</td><td>Dùng cấu trúc sai khiến độ phức tạp không đạt O(1)</td></tr><tr><td>3</td><td>Cài đặt đúng O(1) get/put bằng Map</td></tr><tr><td>4</td><td>Thêm được TTL (hết hạn) cho từng entry</td></tr><tr><td>5</td><td>Xử lý đúng concurrency và giải thích được trade-off bộ nhớ</td></tr></table></div>
     </article>
 
     <article class="coding-card">
@@ -2452,6 +2479,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
       <p class="coding-field"><b>Cách tiếp cận:</b> Lưu số token hiện có và thời điểm refill gần nhất; mỗi request tính số token được refill theo thời gian trôi qua trước khi kiểm tra còn token hay không.</p>
       <p class="coding-field"><b>Độ phức tạp:</b> O(1) cho mỗi lần kiểm tra request.</p>
       <p class="coding-field"><b>Follow-up:</b> Làm sao chia sẻ rate limiter này giữa nhiều instance server (gợi ý: chuyển state sang Redis).</p>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Không giải được</td></tr><tr><td>2</td><td>Cài đặt sai logic refill token</td></tr><tr><td>3</td><td>Cài đặt đúng token bucket cơ bản</td></tr><tr><td>4</td><td>Giải thích được đánh đổi so với sliding window</td></tr><tr><td>5</td><td>Mở rộng chia sẻ state qua Redis cho nhiều instance</td></tr></table></div>
     </article>
 
     <article class="coding-card">
@@ -2460,6 +2488,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
       <p class="coding-field"><b>Cách tiếp cận:</b> Dùng object lưu map từ tên sự kiện tới danh sách callback đã đăng ký; <code>emit</code> duyệt qua và gọi từng callback.</p>
       <p class="coding-field"><b>Độ phức tạp:</b> O(k) cho mỗi lần emit, với k là số listener của sự kiện đó.</p>
       <p class="coding-field"><b>Follow-up:</b> Hỗ trợ thêm <code>once</code> — chỉ lắng nghe một lần rồi tự động gỡ callback.</p>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Không giải được</td></tr><tr><td>2</td><td>emit sai thứ tự hoặc thiếu xử lý khi không có listener</td></tr><tr><td>3</td><td>Cài đặt đúng on/off/emit</td></tr><tr><td>4</td><td>Thêm được once (tự gỡ sau một lần)</td></tr><tr><td>5</td><td>Xử lý đúng khi một listener throw lỗi, hỗ trợ namespace/wildcard</td></tr></table></div>
     </article>
 
     <article class="coding-card">
@@ -2468,6 +2497,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
       <p class="coding-field"><b>Cách tiếp cận:</b> Duyệt mảng, dùng object/Map làm accumulator, đẩy từng phần tử vào đúng nhóm dựa trên key trả về từ <code>keyFn</code>.</p>
       <p class="coding-field"><b>Độ phức tạp:</b> O(n) thời gian.</p>
       <p class="coding-field"><b>Follow-up:</b> Viết lại bằng <code>Array.reduce()</code> thay vì vòng lặp thủ công.</p>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Không giải được</td></tr><tr><td>2</td><td>Giải đúng nhưng dùng vòng lặp lồng O(n²)</td></tr><tr><td>3</td><td>Giải đúng O(n) bằng object/map</td></tr><tr><td>4</td><td>Viết lại được bằng <code>reduce()</code></td></tr><tr><td>5</td><td>Tổng quát hoá cho nhiều tiêu chí group cùng lúc (nested grouping)</td></tr></table></div>
     </article>
 
     <article class="coding-card">
@@ -2476,6 +2506,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
       <p class="coding-field"><b>Cách tiếp cận:</b> Giữ một hàng đợi task; khi có "slot" trống (số task đang chạy nhỏ hơn giới hạn) thì lấy task tiếp theo ra chạy, tăng/giảm slot khi task bắt đầu/kết thúc.</p>
       <p class="coding-field"><b>Độ phức tạp:</b> O(n) tổng số task, chạy tối đa k task đồng thời.</p>
       <p class="coding-field"><b>Follow-up:</b> Khi một task bị lỗi, có nên dừng toàn bộ hàng đợi hay tiếp tục chạy các task còn lại?</p>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Không giải được</td></tr><tr><td>2</td><td>Giới hạn concurrency không chính xác</td></tr><tr><td>3</td><td>Cài đặt đúng cơ chế giới hạn slot</td></tr><tr><td>4</td><td>Xử lý có chủ đích khi một task lỗi (dừng hay tiếp tục)</td></tr><tr><td>5</td><td>Thêm được priority cho task và khả năng huỷ task đang chờ</td></tr></table></div>
     </article>
 
     <div class="coding-level-head"><h3>Senior</h3><span>5 bài</span></div>
@@ -2486,6 +2517,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
       <p class="coding-field"><b>Cách tiếp cận:</b> Trừu tượng hoá một interface chung, cài đặt riêng từng thuật toán, so sánh độ chính xác (sliding window chặn burst tốt hơn) và chi phí bộ nhớ (fixed window rẻ hơn).</p>
       <p class="coding-field"><b>Độ phức tạp:</b> O(1) fixed window; O(w) sliding window log với w là kích thước cửa sổ theo dõi.</p>
       <p class="coding-field"><b>Follow-up:</b> Mở rộng để chạy phân tán, chia sẻ state qua nhiều instance bằng Redis.</p>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Không giải được</td></tr><tr><td>2</td><td>Chỉ cài được một thuật toán</td></tr><tr><td>3</td><td>Cài đúng cả fixed và sliding window</td></tr><tr><td>4</td><td>So sánh chính xác trade-off độ chính xác/bộ nhớ giữa hai thuật toán</td></tr><tr><td>5</td><td>Thiết kế được kiến trúc chạy phân tán qua Redis, xử lý đúng race condition</td></tr></table></div>
     </article>
 
     <article class="coding-card">
@@ -2494,6 +2526,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
       <p class="coding-field"><b>Cách tiếp cận:</b> Nhận diện thao tác tra cứu bị lặp lại trong mảng ở mỗi vòng lặp, thay bằng Set/Map để tra cứu O(1) thay vì quét lại toàn mảng mỗi lần.</p>
       <p class="coding-field"><b>Độ phức tạp:</b> Giảm từ O(n²) xuống O(n) thời gian, đổi lấy O(n) bộ nhớ cho Set/Map.</p>
       <p class="coding-field"><b>Follow-up:</b> Giải thích trade-off bộ nhớ khi đổi sang Set/Map, khi nào việc này KHÔNG đáng đánh đổi.</p>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Không nhận ra vấn đề độ phức tạp</td></tr><tr><td>2</td><td>Nhận ra nhưng sửa sai cách (vẫn còn thao tác O(n) ẩn)</td></tr><tr><td>3</td><td>Sửa đúng bằng Set/Map</td></tr><tr><td>4</td><td>Giải thích đúng trade-off bộ nhớ đánh đổi</td></tr><tr><td>5</td><td>Tìm thêm được các chỗ khác trong codebase có vấn đề tương tự, đề xuất convention phòng ngừa</td></tr></table></div>
     </article>
 
     <article class="coding-card">
@@ -2502,6 +2535,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
       <p class="coding-field"><b>Cách tiếp cận:</b> Áp dụng early return để giảm độ lồng, tách mỗi nhánh thành hàm riêng có tên rõ nghĩa, cân nhắc strategy pattern nếu logic rẽ nhánh theo loại đối tượng lặp lại nhiều nơi.</p>
       <p class="coding-field"><b>Độ phức tạp:</b> Không đổi về mặt thuật toán — mục tiêu là giảm độ phức tạp nhận thức (cognitive complexity), không phải Big O.</p>
       <p class="coding-field"><b>Follow-up:</b> Viết test cho từng nhánh sau khi refactor mà không cần sửa lại test khi refactor tiếp lần sau.</p>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Không cải thiện được độ đọc</td></tr><tr><td>2</td><td>Tách hàm nhưng vẫn còn logic trùng lặp</td></tr><tr><td>3</td><td>Áp dụng đúng early return và tách hàm rõ nghĩa</td></tr><tr><td>4</td><td>Viết được test đầy đủ cho từng nhánh sau refactor</td></tr><tr><td>5</td><td>Đề xuất được abstraction tổng quát (strategy pattern) áp dụng cho các bài toán tương tự</td></tr></table></div>
     </article>
 
     <article class="coding-card">
@@ -2510,6 +2544,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
       <p class="coding-field"><b>Cách tiếp cận:</b> Middleware kiểm tra key đã tồn tại trong storage chưa; nếu có, trả lại response đã lưu trước đó; nếu chưa, xử lý request bình thường rồi lưu kết quả gắn với key đó.</p>
       <p class="coding-field"><b>Độ phức tạp:</b> O(1) tra cứu key nếu dùng cache/DB có index phù hợp.</p>
       <p class="coding-field"><b>Follow-up:</b> Xử lý race condition khi hai request cùng key tới gần như đồng thời, trước khi request đầu kịp lưu kết quả.</p>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Không giải được</td></tr><tr><td>2</td><td>Kiểm tra key nhưng lưu kết quả sai cách</td></tr><tr><td>3</td><td>Cài đặt đúng cơ chế kiểm tra và lưu kết quả theo key</td></tr><tr><td>4</td><td>Xử lý đúng race condition khi hai request cùng key gần đồng thời</td></tr><tr><td>5</td><td>Thiết kế thêm cơ chế hết hạn key/dọn dẹp storage, cân nhắc chi phí vận hành ở quy mô lớn</td></tr></table></div>
     </article>
 
     <article class="coding-card">
@@ -2518,6 +2553,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
       <p class="coding-field"><b>Cách tiếp cận:</b> Dùng cursor-based pagination dựa trên một cột có index tăng dần (id, hoặc <code>created_at</code> + id để tránh trùng), truy vấn dạng <code>WHERE id > cursor LIMIT n</code>.</p>
       <p class="coding-field"><b>Độ phức tạp:</b> O(log n + k) mỗi trang nhờ index, thay vì O(offset + k) của OFFSET truyền thống.</p>
       <p class="coding-field"><b>Follow-up:</b> Xử lý khi cần sắp xếp kết quả theo một cột KHÔNG PHẢI cột đang dùng làm cursor.</p>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Không giải được</td></tr><tr><td>2</td><td>Vẫn dùng OFFSET dẫn tới vấn đề hiệu năng như cũ</td></tr><tr><td>3</td><td>Cài đặt đúng cursor-based cơ bản theo id</td></tr><tr><td>4</td><td>Xử lý đúng khi cần sort theo cột khác cột cursor</td></tr><tr><td>5</td><td>Thiết kế được composite cursor xử lý đúng cả trường hợp giá trị trùng nhau</td></tr></table></div>
     </article>
 
     <div class="coding-level-head" style="margin-top:32px;"><h3>Debugging Interview</h3><span>5 tình huống</span></div>
@@ -2532,6 +2568,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
         <div class="debug-step"><b>Fix</b>Đẩy state xuống thấp hơn trong cây (colocate gần nơi dùng), tách context thành nhiều context nhỏ theo nhóm dữ liệu, hoặc dùng <code>memo</code> cho các component con không phụ thuộc state đó.</div>
         <div class="debug-step"><b>Trade-off</b>Tách quá nhiều context nhỏ làm code phức tạp hơn để quản lý — cần cân bằng giữa đơn giản và hiệu năng.</div>
       </div>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Đoán chung chung 'chắc do React chậm'</td></tr><tr><td>2</td><td>Xem code nhưng không dùng công cụ đo</td></tr><tr><td>3</td><td>Dùng Profiler xác định đúng component re-render thừa</td></tr><tr><td>4</td><td>Khoanh vùng chính xác state/context là nguyên nhân gốc</td></tr><tr><td>5</td><td>Fix triệt để (colocate state/tách context) và thêm test/eslint rule phòng regression</td></tr></table></div>
     </article>
 
     <article class="debug-card">
@@ -2544,6 +2581,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
         <div class="debug-step"><b>Fix</b>Dời job nặng sang khung giờ ít traffic, hoặc tách tài nguyên riêng cho job batch khỏi phần phục vụ traffic thời gian thực.</div>
         <div class="debug-step"><b>Trade-off</b>Tách tài nguyên riêng tốn chi phí vận hành hơn, cần cân nhắc so với mức độ ảnh hưởng thực tế.</div>
       </div>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Đoán chung chung 'chắc do traffic tăng'</td></tr><tr><td>2</td><td>Xem log nhưng không đối chiếu thời gian chính xác</td></tr><tr><td>3</td><td>Đối chiếu metrics với lịch job để tìm tương quan</td></tr><tr><td>4</td><td>Khoanh vùng đúng job/nguyên nhân cụ thể gây nghẽn</td></tr><tr><td>5</td><td>Tách tài nguyên/dời lịch job và thiết lập alerting phát hiện sớm lần sau</td></tr></table></div>
     </article>
 
     <article class="debug-card">
@@ -2556,6 +2594,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
         <div class="debug-step"><b>Fix</b>Giới hạn kích thước cache (LRU), đảm bảo gỡ event listener khi không cần, tránh giữ tham chiếu object lớn trong closure lâu dài.</div>
         <div class="debug-step"><b>Trade-off</b>Giới hạn cache có thể giảm hit rate — cần cân bằng giữa bộ nhớ và hiệu năng cache.</div>
       </div>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Đoán chung chung 'chắc leak ở đâu đó'</td></tr><tr><td>2</td><td>Restart tạm thời không điều tra tiếp</td></tr><tr><td>3</td><td>Dùng heap snapshot đối chiếu để tìm object tăng bất thường</td></tr><tr><td>4</td><td>Khoanh vùng chính xác đoạn code giữ tham chiếu</td></tr><tr><td>5</td><td>Fix triệt để, giới hạn cache, và thiết lập giám sát memory usage để phát hiện sớm lần sau</td></tr></table></div>
     </article>
 
     <article class="debug-card">
@@ -2568,6 +2607,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
         <div class="debug-step"><b>Fix</b>Rollback ngay để ổn định hệ thống trước, sau đó sửa lại đúng chỗ kèm test cho edge case đã bỏ sót.</div>
         <div class="debug-step"><b>Trade-off</b>Rollback nhanh ưu tiên ổn định nhưng có thể mất cơ hội điều tra kỹ nguyên nhân gốc nếu không có đủ log tại thời điểm xảy ra lỗi.</div>
       </div>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Không liên hệ được lỗi với thời điểm deploy</td></tr><tr><td>2</td><td>Biết liên quan deploy nhưng không tìm ra dòng code cụ thể</td></tr><tr><td>3</td><td>Dùng log xác định đúng thời điểm và phạm vi ảnh hưởng</td></tr><tr><td>4</td><td>Khoanh vùng chính xác dòng code/điều kiện input gây lỗi</td></tr><tr><td>5</td><td>Rollback kịp thời, fix kèm test cho edge case, thêm kiểm tra ở CI để tránh lặp lại</td></tr></table></div>
     </article>
 
     <article class="debug-card">
@@ -2580,6 +2620,7 @@ Result: Ra mắt đúng hạn; adapter layer sau này giúp đổi nhà cung c�
         <div class="debug-step"><b>Fix</b>Code-splitting để giảm bundle ban đầu, lazy-load ảnh/component chưa cần ngay, nén và dùng định dạng ảnh hiện đại (WebP/AVIF).</div>
         <div class="debug-step"><b>Trade-off</b>Code-splitting quá nhiều có thể tăng số request nhỏ lẻ — cần cân bằng giữa số lượng và kích thước mỗi bundle.</div>
       </div>
+      <div class="score-table-wrap"><table class="score-table"><tr><th>Điểm</th><th>Biểu hiện</th></tr><tr><td>1</td><td>Không tái hiện được vấn đề (chỉ test trên máy dev)</td></tr><tr><td>2</td><td>Nhận ra khác biệt môi trường nhưng không đo cụ thể</td></tr><tr><td>3</td><td>Dùng throttle network/CPU và Lighthouse để đo chính xác</td></tr><tr><td>4</td><td>Khoanh vùng đúng nguyên nhân chính (bundle/ảnh/third-party script)</td></tr><tr><td>5</td><td>Tối ưu triệt để và thiết lập performance budget để tránh thoái hoá về sau</td></tr></table></div>
     </article>
   </section>
 
