@@ -262,6 +262,90 @@
     outline-offset:2px;
   }
 
+  .search-block{ margin-bottom:18px; }
+  .search-input-wrap{ position:relative; display:flex; align-items:center; }
+  .search-input-wrap input{
+    width:100%;
+    font-family:"IBM Plex Sans", sans-serif;
+    font-size:13px;
+    padding:8px 30px 8px 10px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--surface);
+    color:var(--ink);
+  }
+  .search-input-wrap input::placeholder{ color:var(--ink-faint); }
+  .search-input-wrap input:focus-visible{
+    outline:2px solid var(--accent-2);
+    outline-offset:1px;
+  }
+  .search-input-wrap button{
+    position:absolute;
+    right:4px;
+    background:none;
+    border:none;
+    color:var(--ink-faint);
+    cursor:pointer;
+    font-size:16px;
+    line-height:1;
+    padding:4px 6px;
+  }
+  .search-input-wrap button:hover{ color:var(--ink); }
+  .search-status{
+    margin:6px 2px 0;
+    font-family:"IBM Plex Mono", monospace;
+    font-size:11px;
+    color:var(--ink-faint);
+  }
+  #panel-roadmap ul.checklist li.search-hidden{ display:none !important; }
+  .waypoint.search-empty{ display:none; }
+  mark.search-mark{
+    background:var(--accent-ink);
+    color:var(--accent);
+    padding:0 1px;
+    border-radius:2px;
+    font-weight:600;
+  }
+
+  .next-actions{ margin-bottom:18px; }
+  .next-actions .label{ display:block; margin-bottom:4px; }
+  .next-actions-meta{
+    font-family:"IBM Plex Mono", monospace;
+    font-size:11px;
+    color:var(--ink-faint);
+    margin:0 0 8px;
+  }
+  .next-actions-list{
+    list-style:none;
+    margin:0; padding:0;
+    display:flex; flex-direction:column; gap:6px;
+  }
+  .next-actions-list a{
+    display:block;
+    font-size:12.5px;
+    line-height:1.4;
+    color:var(--ink-soft);
+    text-decoration:none;
+    padding:6px 8px;
+    border-radius:6px;
+    background:var(--surface);
+    border:1px solid var(--line);
+  }
+  .next-actions-list a:hover{ color:var(--ink); border-color:var(--accent-2); }
+  .next-actions-list .next-action-done{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    padding:6px 8px;
+  }
+  .next-action-flash{
+    animation: next-action-pulse 1.6s ease;
+    border-radius:8px;
+  }
+  @keyframes next-action-pulse{
+    0%{ background:var(--accent-2-ink); }
+    100%{ background:transparent; }
+  }
+
   /* ---------- main content ---------- */
   main{ padding: 40px 32px 100px; min-width:0; }
   @media (max-width:640px){ main{ padding:28px 18px 80px; } }
@@ -391,6 +475,35 @@
   }
   .item-detail-body b{ color:var(--ink); font-weight:600; }
   .item-detail-body a{ color:var(--accent-2); }
+  .callout ul.qa-list li{ display:flex; flex-direction:column; }
+  .qa-q{ display:block; }
+  .qa-detail{ margin-top:4px; }
+  .qa-detail summary{
+    cursor:pointer;
+    font-family:"IBM Plex Mono", monospace;
+    font-size:11px;
+    color:var(--accent);
+    list-style:none;
+  }
+  .qa-detail summary::-webkit-details-marker{ display:none; }
+  .qa-detail summary::before{ content:"▸ Xem gợi ý trả lời & mẹo"; }
+  .qa-detail[open] summary::before{ content:"▾ Ẩn gợi ý trả lời"; }
+  .qa-detail-body{
+    margin-top:8px;
+    padding:10px 12px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-left:2px solid var(--accent);
+    border-radius:6px;
+    font-size:13px;
+    line-height:1.55;
+    color:var(--ink-soft);
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .qa-detail-body b{ color:var(--ink); font-weight:600; }
+  .qa-detail-body a{ color:var(--accent-2); }
   ul.checklist label{
     display:flex;
     align-items:flex-start;
@@ -586,6 +699,19 @@
   }
   .jump-links a:hover{ border-color:var(--accent-2); color:var(--accent-2); }
 
+  .external-links{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 0; }
+  .external-links a{
+    font-family:"IBM Plex Mono", monospace;
+    font-size:12px;
+    background:var(--accent-ink);
+    border:1px solid var(--accent);
+    border-radius:999px;
+    padding:6px 12px;
+    color:var(--accent);
+    text-decoration:none;
+  }
+  .external-links a:hover{ background:var(--accent); color:var(--accent-ink); }
+
   /* ---------- knowledge tab specifics ---------- */
   ul.notes{
     list-style:disc;
@@ -675,6 +801,20 @@
     <div class="overall-progress" id="progress-block">
       <div class="row"><span class="label">Tiến độ chung</span><span id="overall-pct">0%</span></div>
       <div class="bar"><i id="overall-bar"></i></div>
+    </div>
+
+    <div class="next-actions" id="next-actions-block">
+      <span class="label">Việc nên làm tiếp theo</span>
+      <p class="next-actions-meta" id="next-actions-label"></p>
+      <ul class="next-actions-list" id="next-actions-list"></ul>
+    </div>
+
+    <div class="search-block" id="search-block">
+      <div class="search-input-wrap">
+        <input type="text" id="roadmap-search" placeholder="Tìm mục (vd: Redis, JWT, ADR...)" autocomplete="off">
+        <button type="button" id="search-clear" aria-label="Xoá tìm kiếm" hidden>×</button>
+      </div>
+      <p class="search-status" id="search-status" hidden></p>
     </div>
 
     <nav class="toc" id="toc-roadmap">
@@ -1222,11 +1362,53 @@
 
       <div class="callout">
         <span class="label callout-label">Câu hỏi phỏng vấn hay gặp ở vòng Intern/Fresher</span>
-        <ul>
-          <li>Điều gì xảy ra khi bạn gõ một URL vào trình duyệt và nhấn Enter?</li>
-          <li>Phân biệt <code>git merge</code> và <code>git rebase</code>, khi nào dùng cái nào?</li>
-          <li>Component, props, state khác nhau thế nào trong React?</li>
+        <ul class="qa-list">
+          <li>
+            <span class="qa-q">Điều gì xảy ra khi bạn gõ một URL vào trình duyệt và nhấn Enter?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Trình duyệt phân giải domain qua DNS ra IP, mở kết nối TCP tới server (bắt tay TLS nếu HTTPS), gửi HTTP request; server xử lý và trả về response; trình duyệt parse HTML, tải thêm CSS/JS/ảnh, dựng DOM và render lên màn hình.</p>
+              <p><b>Mẹo:</b> Đừng liệt kê thuộc lòng — hãy kể theo trình tự thời gian thực tế và sẵn sàng đào sâu khi được hỏi thêm (DNS cache, CDN, HTTP/2). Người phỏng vấn thường hỏi thêm một bước cụ thể để xem bạn hiểu sâu tới đâu.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Phân biệt <code>git merge</code> và <code>git rebase</code>, khi nào dùng cái nào?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> <code>merge</code> tạo một commit gộp, giữ nguyên lịch sử cả hai nhánh (rõ ràng nhưng lịch sử rối hơn); <code>rebase</code> viết lại lịch sử để nhánh của bạn trông như được tạo sau cùng, cho lịch sử thẳng, dễ đọc hơn nhưng đổi commit hash nên nguy hiểm nếu nhánh đã được người khác dùng chung.</p>
+              <p><b>Mẹo:</b> Nhấn mạnh nguyên tắc "không rebase nhánh public/shared" — đây là điều nhà tuyển dụng thực sự muốn nghe, không chỉ định nghĩa suông.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Component, props, state khác nhau thế nào trong React?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Component là khối UI tái sử dụng; props là dữ liệu truyền từ component cha xuống con (chỉ đọc, không tự sửa); state là dữ liệu nội bộ component tự quản lý, thay đổi thì component tự render lại.</p>
+              <p><b>Mẹo:</b> Cho một ví dụ cụ thể (component <code>Button</code> nhận props <code>label</code>/<code>onClick</code>, component <code>Form</code> tự quản lý state input) thay vì chỉ nêu định nghĩa suông — trả lời có ví dụ luôn ghi điểm hơn.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Sự khác biệt giữa <code>let</code>, <code>const</code>, <code>var</code> trong JavaScript?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> <code>var</code> có function scope và bị hoisting kèm giá trị <code>undefined</code>; <code>let</code>/<code>const</code> có block scope và nằm trong "temporal dead zone" tới khi được khai báo. <code>const</code> không cho gán lại tên biến (nhưng nếu là object/array thì nội dung bên trong vẫn sửa được).</p>
+              <p><b>Mẹo:</b> Nhấn mạnh "<code>const</code> không có nghĩa là bất biến (immutable)" — nhiều bạn mới nhầm const object là không đổi được gì bên trong, đây là điểm hay bị hỏi bẫy.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Mảng (Array) và Object khác nhau thế nào, khi nào dùng cái nào?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Array phù hợp khi thứ tự phần tử quan trọng và truy cập chủ yếu theo index hoặc lặp qua toàn bộ; Object (hoặc Map) phù hợp khi cần tra cứu nhanh theo khoá (key) không quan tâm thứ tự.</p>
+              <p><b>Mẹo:</b> Cho ví dụ thực tế (danh sách sản phẩm dùng array, tra cứu user theo id dùng object/map) thay vì chỉ nêu lý thuyết.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Big O là gì? Cho ví dụ độ phức tạp O(n) và O(n²).</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Big O mô tả tốc độ tăng của thời gian chạy/bộ nhớ theo kích thước input, không phải thời gian chạy thực tế. O(n): duyệt qua mảng một lần (ví dụ tìm max). O(n²): duyệt lồng hai vòng lặp trên cùng mảng (ví dụ so sánh từng cặp phần tử).</p>
+              <p><b>Mẹo:</b> Nếu không nhớ công thức chính xác, hãy mô tả bằng lời "nếu input tăng gấp đôi thì thời gian chạy tăng thế nào" — cách suy luận này quan trọng hơn thuộc lòng ký hiệu.</p>
+            </div></details>
+          </li>
         </ul>
+        <div class="external-links">
+          <a href="cam-nang-phong-van.html#intern">Xem đầy đủ trong Cẩm Nang Phỏng Vấn ↗</a>
+        </div>
       </div>
     </section>
 
@@ -1621,12 +1803,60 @@
 
       <div class="callout">
         <span class="label callout-label">Câu hỏi phỏng vấn hay gặp ở vòng Junior</span>
-        <ul>
-          <li>Sự khác nhau giữa <code>useMemo</code> và <code>useCallback</code>?</li>
-          <li>JWT lưu ở đâu là an toàn: localStorage hay httpOnly cookie? Vì sao?</li>
-          <li>Làm sao debug một component bị re-render quá nhiều lần?</li>
-          <li>Mô tả một pipeline CI/CD bạn từng dùng.</li>
+        <ul class="qa-list">
+          <li>
+            <span class="qa-q">Sự khác nhau giữa <code>useMemo</code> và <code>useCallback</code>?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> <code>useMemo</code> ghi nhớ một giá trị tính toán, <code>useCallback</code> ghi nhớ một hàm — về bản chất <code>useCallback(fn, deps)</code> tương đương <code>useMemo(() => fn, deps)</code>. Không nên dùng khi phép tính đủ rẻ, vì bản thân việc memo hoá cũng tốn chi phí so sánh dependency.</p>
+              <p><b>Mẹo:</b> Nói rõ "over-memoization" là lỗi phổ biến của dev mới — thể hiện bạn hiểu đây là công cụ tối ưu có chi phí, không phải mặc định nên dùng ở mọi nơi.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">JWT lưu ở đâu là an toàn: localStorage hay httpOnly cookie? Vì sao?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> httpOnly cookie an toàn hơn trước XSS vì JavaScript không đọc được, nhưng cần thêm biện pháp chống CSRF (SameSite, CSRF token). localStorage dễ bị đánh cắp qua XSS vì bất kỳ script nào chạy trên trang cũng đọc được.</p>
+              <p><b>Mẹo:</b> Không có đáp án đúng tuyệt đối — nói rõ đánh đổi giữa XSS và CSRF thay vì chọn một phía chắc nịch, đó mới là điều thể hiện tư duy bảo mật thật.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Làm sao debug một component bị re-render quá nhiều lần?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Dùng React DevTools Profiler để xem component nào render và vì sao (props/state đổi hay parent re-render kéo theo); kiểm tra object/hàm tạo mới mỗi lần render (inline object, arrow function trong JSX) làm props "trông khác" dù giá trị giống nhau; áp <code>memo</code>/<code>useMemo</code>/<code>useCallback</code> đúng chỗ sau khi xác định nguyên nhân.</p>
+              <p><b>Mẹo:</b> Nhấn mạnh thứ tự "đo trước, tối ưu sau" — nói bạn sẽ profile trước khi thêm memo bừa bãi, tránh bị đánh giá là tối ưu theo cảm tính.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Mô tả một pipeline CI/CD bạn từng dùng.</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Kể theo cấu trúc: trigger (push/PR) → build → test (unit, có thể cả lint) → deploy (staging rồi production, thường cần approve thủ công cho production). Nêu cụ thể công cụ đã dùng (GitHub Actions/GitLab CI) và một lần pipeline fail, bạn tìm nguyên nhân thế nào.</p>
+              <p><b>Mẹo:</b> Câu trả lời tốt luôn có một ví dụ thật kèm theo, không chỉ mô tả lý thuyết pipeline chuẩn.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">REST API là gì? Phân biệt các status code phổ biến (200, 400, 401, 403, 404, 500).</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> REST là kiến trúc dùng HTTP method (GET/POST/PUT/DELETE) và URL để thao tác trên tài nguyên. 200 OK: thành công; 400 Bad Request: dữ liệu client gửi sai; 401 Unauthorized: chưa xác thực; 403 Forbidden: đã xác thực nhưng không đủ quyền; 404 Not Found: tài nguyên không tồn tại; 500 Internal Server Error: lỗi phía server.</p>
+              <p><b>Mẹo:</b> Phân biệt rõ 401 vs 403 (chưa đăng nhập vs đã đăng nhập nhưng không có quyền) — đây là cặp dễ nhầm nhất và hay bị hỏi thêm.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Viết unit test cho một hàm là gì, bạn test những trường hợp nào?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Test case cho input hợp lệ điển hình (happy path), input biên (empty array, null, số 0, số âm), và input gây lỗi mong đợi (ném exception đúng loại). Mỗi test nên độc lập, không phụ thuộc thứ tự chạy.</p>
+              <p><b>Mẹo:</b> Nhắc tới edge case cụ thể cho bài toán được hỏi (không nói chung chung "test nhiều trường hợp") — thể hiện bạn thực sự nghĩ về input thay vì học thuộc quy trình.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Index trong database dùng để làm gì, khi nào KHÔNG nên đánh index?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Index tăng tốc độ truy vấn SELECT/WHERE/JOIN bằng cách tránh quét toàn bảng, nhưng làm chậm INSERT/UPDATE/DELETE vì phải cập nhật cả index. Không nên đánh index tràn lan trên bảng ghi nhiều đọc ít, hoặc cột có ít giá trị phân biệt (low cardinality, ví dụ cột boolean).</p>
+              <p><b>Mẹo:</b> Nói được sự đánh đổi đọc/ghi thay vì chỉ nói "index giúp nhanh hơn" — đây là dấu hiệu hiểu bản chất chứ không học vẹt.</p>
+            </div></details>
+          </li>
         </ul>
+        <div class="external-links">
+          <a href="cam-nang-phong-van.html#junior">Xem đầy đủ trong Cẩm Nang Phỏng Vấn ↗</a>
+        </div>
       </div>
     </section>
 
@@ -2256,12 +2486,60 @@
 
       <div class="callout">
         <span class="label callout-label">Câu hỏi phỏng vấn hay gặp ở vòng Middle</span>
-        <ul>
-          <li>Phân biệt coupling và cohesion — cho ví dụ code cụ thể bạn từng thấy vi phạm.</li>
-          <li>Làm sao phát hiện và xử lý N+1 query trong một API trả về danh sách?</li>
-          <li>RAG khác gì so với fine-tuning, khi nào chọn cái nào?</li>
-          <li>Thiết kế schema cho một hệ thống đặt vé — đâu là các bảng chính và ràng buộc?</li>
+        <ul class="qa-list">
+          <li>
+            <span class="qa-q">Phân biệt coupling và cohesion — cho ví dụ code cụ thể bạn từng thấy vi phạm.</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Cohesion là mức độ liên quan giữa các phần bên trong một module (cao là tốt); coupling là mức độ phụ thuộc giữa các module khác nhau (thấp là tốt). Ví dụ vi phạm: một class <code>OrderService</code> vừa tính tiền, vừa gửi email, vừa ghi log — cohesion thấp vì gộp nhiều trách nhiệm không liên quan.</p>
+              <p><b>Mẹo:</b> Luôn có ví dụ thật (không chỉ định nghĩa sách vở) và nói bạn đã refactor thế nào — đây là câu hỏi để đánh giá kinh nghiệm thực chiến, không phải lý thuyết.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Làm sao phát hiện và xử lý N+1 query trong một API trả về danh sách?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Phát hiện qua log SQL hoặc APM thấy số query tăng theo số bản ghi trả về; xử lý bằng eager loading (JOIN hoặc <code>include</code> của ORM) để gộp thành 1-2 query thay vì N query lặp lại.</p>
+              <p><b>Mẹo:</b> Nếu có thể, nói thêm cách bạn phòng ngừa từ đầu (review code chú ý N+1) chứ không chỉ cách sửa khi đã xảy ra — thể hiện tư duy chủ động.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">RAG khác gì so với fine-tuning, khi nào chọn cái nào?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> RAG bổ sung ngữ cảnh từ nguồn dữ liệu bên ngoài vào prompt tại thời điểm hỏi (không đổi model, cập nhật dữ liệu dễ, chi phí thấp hơn); fine-tuning huấn luyện lại model để thay đổi hành vi/phong cách cố định (tốn kém hơn, cập nhật chậm hơn nhưng phù hợp khi cần đổi cách model phản hồi chứ không chỉ thêm dữ liệu).</p>
+              <p><b>Mẹo:</b> Kết luận bằng nguyên tắc thực tế: hầu hết bài toán doanh nghiệp giải quyết được bằng RAG, fine-tuning chỉ cần khi RAG không đủ — nói được câu này cho thấy bạn hiểu ưu tiên chi phí/độ phức tạp.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Thiết kế schema cho một hệ thống đặt vé — đâu là các bảng chính và ràng buộc?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Các bảng chính: <code>users</code>, <code>events</code>, <code>seats/showtimes</code>, <code>bookings</code>, <code>payments</code>. Ràng buộc quan trọng nhất: một ghế không được đặt trùng cho cùng suất chiếu (unique constraint hoặc transaction có khoá), trạng thái booking (pending/paid/cancelled) và cơ chế hết hạn giữ chỗ tạm thời (hold timeout).</p>
+              <p><b>Mẹo:</b> Chủ động nêu race condition (hai người đặt cùng ghế cùng lúc) và cách xử lý (transaction, lock, hoặc unique index) — đây thường là điểm nhấn người phỏng vấn muốn nghe.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Transaction trong database là gì? Giải thích ACID.</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Transaction gộp nhiều thao tác thành một đơn vị "tất cả hoặc không gì cả". ACID: Atomicity (tất cả hoặc không), Consistency (dữ liệu luôn hợp lệ theo ràng buộc), Isolation (các transaction chạy song song không ảnh hưởng lẫn nhau), Durability (đã commit thì không mất dù hệ thống crash).</p>
+              <p><b>Mẹo:</b> Cho một ví dụ cụ thể (chuyển tiền giữa hai tài khoản — trừ tiền tài khoản A và cộng tiền tài khoản B phải cùng thành công hoặc cùng thất bại) để minh hoạ Atomicity, đây là ví dụ kinh điển người phỏng vấn muốn nghe.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Bạn xử lý lỗi (error handling) trong một API như thế nào để client dễ debug?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Trả về status code đúng ngữ nghĩa, kèm body có message rõ ràng và mã lỗi nội bộ (error code) để log/tra cứu, không lộ chi tiết nhạy cảm (stack trace, câu SQL) ra ngoài production.</p>
+              <p><b>Mẹo:</b> Nhấn mạnh sự khác biệt giữa thông tin trả về cho client (an toàn, dễ hiểu) và thông tin ghi log nội bộ (chi tiết, dùng để debug) — nhiều bạn mới trả lời chung chung không phân biệt hai tầng này.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Caching giúp gì cho hệ thống, và rủi ro lớn nhất khi dùng cache là gì?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Cache giảm tải cho database/service phía sau và giảm latency cho các dữ liệu đọc nhiều, ít đổi. Rủi ro lớn nhất là dữ liệu cache "cũ" (stale) không khớp với dữ liệu gốc, gây hiển thị sai nếu không có chiến lược invalidation rõ ràng.</p>
+              <p><b>Mẹo:</b> Chủ động nói tới chiến lược invalidate cache (TTL, invalidate khi ghi, event-based) thay vì chỉ nói "cache giúp nhanh hơn" — invalidation mới là phần khó thật sự của caching.</p>
+            </div></details>
+          </li>
         </ul>
+        <div class="external-links">
+          <a href="cam-nang-phong-van.html#middle">Xem đầy đủ trong Cẩm Nang Phỏng Vấn ↗</a>
+        </div>
       </div>
     </section>
 
@@ -2541,12 +2819,60 @@
 
       <div class="callout">
         <span class="label callout-label">Câu hỏi phỏng vấn hay gặp ở vòng Senior</span>
-        <ul>
-          <li>Thiết kế URL shortener/rate limiter — trade-off ở mỗi bước là gì?</li>
-          <li>Kể một lần bạn refactor một phần hệ thống lớn — điều gì khiến bạn tự tin không phá vỡ hành vi cũ?</li>
-          <li>Khi nào bạn chấp nhận technical debt thay vì làm "hoàn hảo" ngay?</li>
-          <li>Bạn đo chất lượng một tính năng AI như thế nào ngoài "nhìn thấy ổn"?</li>
+        <ul class="qa-list">
+          <li>
+            <span class="qa-q">Thiết kế URL shortener/rate limiter — trade-off ở mỗi bước là gì?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> URL shortener: trade-off giữa sinh mã ngắn ngẫu nhiên (dễ trùng, cần check unique) và bộ đếm/hash (không trùng nhưng cần điều phối tập trung); cần cache cho các URL truy cập nhiều. Rate limiter: trade-off giữa độ chính xác (sliding window) và chi phí bộ nhớ/tính toán (fixed window đơn giản hơn nhưng cho phép burst ở ranh giới cửa sổ).</p>
+              <p><b>Mẹo:</b> Luôn kết bài bằng một câu trade-off tổng kết — người phỏng vấn chấm điểm cao khi bạn tự nói ra nhược điểm của chính giải pháp mình chọn.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Kể một lần bạn refactor một phần hệ thống lớn — điều gì khiến bạn tự tin không phá vỡ hành vi cũ?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Nhấn vào việc có test bao phủ hành vi hiện tại trước khi đổi, refactor từng bước nhỏ có thể revert, và chạy song song/so sánh kết quả (shadow testing) nếu thay đổi rủi ro cao.</p>
+              <p><b>Mẹo:</b> Trả lời theo STAR, tập trung vào "làm sao biết chắc không phá vỡ" chứ không chỉ "đã refactor cái gì" — đó mới là điều câu hỏi thực sự muốn khai thác.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Khi nào bạn chấp nhận technical debt thay vì làm "hoàn hảo" ngay?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Khi áp lực thời gian ra thị trường lớn hơn rủi ro kỹ thuật, và khoản nợ được ghi nhận rõ ràng (ticket/backlog) kèm kế hoạch trả sau — không phải "nợ ngầm" không ai biết.</p>
+              <p><b>Mẹo:</b> Nhấn mạnh cụm "có chủ đích và có ghi nhận" — nhà tuyển dụng lo ngại ứng viên chấp nhận nợ kỹ thuật một cách tuỳ tiện, không kiểm soát.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Bạn đo chất lượng một tính năng AI như thế nào ngoài "nhìn thấy ổn"?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Xây bộ test case cố định đo được accuracy/groundedness, theo dõi hallucination rate, latency và chi phí/request như một bộ chỉ số, chạy lại bộ test mỗi khi đổi prompt/model.</p>
+              <p><b>Mẹo:</b> Nêu được ít nhất 2-3 chỉ số cụ thể (không chỉ nói chung "đánh giá chất lượng") — câu trả lời mơ hồ ở câu này thường bị đánh giá là chưa có kinh nghiệm production thật với AI.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Thiết kế một hệ thống chat real-time — chọn công nghệ gì và vì sao?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Dùng WebSocket (hoặc SSE cho chiều một hướng) để giữ kết nối liên tục thay vì poll liên tục; cần message queue để đảm bảo tin nhắn không mất khi service scale ngang nhiều instance; lưu lịch sử chat vào database riêng, không dựa vào bộ nhớ tạm của WebSocket server.</p>
+              <p><b>Mẹo:</b> Nêu được vấn đề "một user có thể kết nối vào instance WebSocket khác với người họ đang chat" và cách giải quyết (pub/sub qua Redis/message broker giữa các instance) — đây là điểm phân biệt câu trả lời senior thật với câu trả lời chỉ biết khái niệm WebSocket.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Làm sao bạn quyết định khi nào nên tách một service thành microservice?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Tách khi một phần hệ thống có tốc độ thay đổi/scale khác biệt rõ rệt với phần còn lại, hoặc cần đội riêng sở hữu độc lập — không tách chỉ vì "microservice là xu hướng". Chi phí vận hành (network, monitoring, deploy riêng) phải nhỏ hơn lợi ích mang lại.</p>
+              <p><b>Mẹo:</b> Nhấn mạnh quan điểm "monolith trước, tách khi có lý do rõ ràng" — nói ngược lại (tách sớm mặc định) thường bị đánh giá là thiếu kinh nghiệm thực chiến với chi phí vận hành phân tán.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Một lần incident production nghiêm trọng bạn xử lý — quy trình của bạn là gì?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Theo thứ tự: ổn định hệ thống trước (rollback/mitigate) rồi mới tìm nguyên nhân gốc; giao tiếp rõ ràng trạng thái cho các bên liên quan trong lúc xử lý; viết postmortem không đổ lỗi cá nhân (blameless) sau khi xong, tập trung vào quy trình/hệ thống để tránh lặp lại.</p>
+              <p><b>Mẹo:</b> Nhấn mạnh thứ tự "ổn định trước, điều tra sau" — kể chuyện dành hết thời gian tìm nguyên nhân gốc trong khi hệ thống vẫn đang sập là dấu hiệu thiếu kinh nghiệm xử lý incident thật.</p>
+            </div></details>
+          </li>
         </ul>
+        <div class="external-links">
+          <a href="cam-nang-phong-van.html#senior">Xem đầy đủ trong Cẩm Nang Phỏng Vấn ↗</a>
+        </div>
       </div>
     </section>
 
@@ -2597,11 +2923,46 @@
 
       <div class="callout">
         <span class="label callout-label">Câu hỏi phỏng vấn hay gặp ở vòng Staff/Lead</span>
-        <ul>
-          <li>Kể một lần bạn thuyết phục một team đổi hướng kỹ thuật dù ban đầu họ không đồng ý.</li>
-          <li>Bạn đo thành công của việc mentor một kỹ sư như thế nào?</li>
-          <li>Làm sao bạn cân bằng giữa tự tay giải quyết vấn đề và nhân rộng năng lực qua người khác?</li>
+        <ul class="qa-list">
+          <li>
+            <span class="qa-q">Kể một lần bạn thuyết phục một team đổi hướng kỹ thuật dù ban đầu họ không đồng ý.</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Nhấn vào việc trình bày bằng dữ liệu/trade-off cụ thể thay vì áp đặt quan điểm, viết RFC để cả team phản biện, và sẵn sàng điều chỉnh đề xuất dựa trên góp ý thay vì bảo vệ ý kiến ban đầu bằng mọi giá.</p>
+              <p><b>Mẹo:</b> Câu chuyện thuyết phục nhất không phải "tôi đúng và họ nghe theo" mà là "chúng tôi cùng đi đến quyết định tốt hơn qua tranh luận" — thể hiện kỹ năng ảnh hưởng, không phải quyền lực.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Bạn đo thành công của việc mentor một kỹ sư như thế nào?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Không chỉ là họ "học được gì", mà là họ tự làm được việc gì trước đây phải hỏi bạn, và họ có bắt đầu mentor lại người khác không — đó là dấu hiệu năng lực đã thực sự chuyển giao.</p>
+              <p><b>Mẹo:</b> Tránh trả lời chung chung "họ tiến bộ" — đưa ra một mốc cụ thể (ví dụ: tự thiết kế được một feature không cần review sát) để câu trả lời có trọng lượng.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Làm sao bạn cân bằng giữa tự tay giải quyết vấn đề và nhân rộng năng lực qua người khác?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Ưu tiên tự làm khi vấn đề cấp bách/rủi ro cao và chưa ai đủ năng lực xử lý ngay; ưu tiên nhân rộng (tài liệu hoá, mentor, xây tooling) khi vấn đề sẽ lặp lại — tự làm mãi thì không scale được ảnh hưởng.</p>
+              <p><b>Mẹo:</b> Đưa ra ví dụ một lần bạn chọn không tự làm dù có thể làm nhanh hơn, để nhường cơ hội cho người khác học — đây là dấu hiệu tư duy Staff/Lead thật sự.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Bạn xây dựng văn hoá kỹ thuật (engineering culture) trong team như thế nào?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Thông qua hành động lặp lại có chủ đích — cách bạn review code, cách bạn phản ứng khi có incident, cách bạn ghi nhận người dám nói "tôi không biết" — chứ không phải một buổi họp tuyên bố giá trị. Văn hoá hình thành từ điều được thưởng/phạt trong thực tế, không phải từ khẩu hiệu.</p>
+              <p><b>Mẹo:</b> Đưa ví dụ cụ thể một hành vi nhỏ bạn làm lặp lại để định hình văn hoá (ví dụ luôn khen public khi ai đó báo lỗi sớm thay vì giấu) — câu trả lời trừu tượng về "văn hoá" mà không có ví dụ hành vi cụ thể thường bị xem là sáo rỗng.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Làm sao bạn quyết định đầu tư vào một khoản tech debt lớn thay vì feature mới?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Định lượng chi phí tech debt đang gây ra (tốc độ ra feature chậm dần, số bug lặp lại, thời gian onboard người mới) và so sánh với chi phí cơ hội của việc trì hoãn thêm; trình bày bằng ngôn ngữ tác động kinh doanh (business impact) chứ không chỉ "code xấu", để thuyết phục các bên không phải kỹ thuật.</p>
+              <p><b>Mẹo:</b> Tránh xin đầu tư tech debt chỉ vì "code không đẹp" — luôn quy đổi ra ảnh hưởng cụ thể (tốc độ, rủi ro, chi phí) thì mới thuyết phục được người ra quyết định không chuyên kỹ thuật.</p>
+            </div></details>
+          </li>
         </ul>
+        <div class="external-links">
+          <a href="cam-nang-phong-van.html#staff">Xem đầy đủ trong Cẩm Nang Phỏng Vấn ↗</a>
+        </div>
       </div>
 
       <p class="wp-note">Xem tiếp Mục 07 — Định hướng 5–10 năm để biết các hướng chuyên sâu (Platform, AI/ML, Security, EM...) và ngã rẽ sự nghiệp sau mốc này.</p>
@@ -2611,6 +2972,9 @@
     <section class="leg" id="phong-van" data-section="phong-van">
       <div class="leg-head"><span class="leg-num">06</span><h2>Phỏng vấn</h2></div>
       <p class="leg-intro">Kiến thức chuyên môn cần được "đóng gói" lại thành thứ thể hiện được trong 45–60 phút phỏng vấn.</p>
+      <div class="external-links">
+        <a href="cam-nang-phong-van.html">Mở Cẩm Nang Phỏng Vấn — 115 câu hỏi, coding/debugging &amp; project deep dive ↗</a>
+      </div>
 
       <div class="waypoint">
         <h3>Chuẩn bị hồ sơ</h3>
@@ -2731,11 +3095,46 @@
 
       <div class="callout">
         <span class="label callout-label">Câu hỏi behavioral thường gặp</span>
-        <ul>
-          <li>Kể về một lần bạn bất đồng ý kiến với đồng nghiệp/leader — bạn xử lý thế nào?</li>
-          <li>Một lần bạn trễ deadline, nguyên nhân và bạn đã thay đổi gì sau đó?</li>
-          <li>Tại sao bạn muốn làm ở công ty này, vị trí này?</li>
+        <ul class="qa-list">
+          <li>
+            <span class="qa-q">Kể về một lần bạn bất đồng ý kiến với đồng nghiệp/leader — bạn xử lý thế nào?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Theo STAR — nêu rõ bối cảnh bất đồng, hành động bạn làm (trình bày quan điểm bằng dữ liệu/lý do, lắng nghe phản biện), và kết quả (đi đến quyết định chung, hoặc học được gì dù không thắng).</p>
+              <p><b>Mẹo:</b> Tránh kể chuyện đổ lỗi cho người kia hoặc chuyện mình "thắng" tuyệt đối — nhà tuyển dụng muốn thấy bạn tôn trọng ý kiến khác và biết thoả hiệp khi cần.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Một lần bạn trễ deadline, nguyên nhân và bạn đã thay đổi gì sau đó?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Nêu nguyên nhân thật (ước lượng sai, phát sinh việc ngoài dự kiến), hành động khi phát hiện trễ (báo sớm, đề xuất phương án), và thay đổi cụ thể sau đó (ví dụ: chia nhỏ task hơn, báo cáo tiến độ giữa chừng thay vì đợi đến hạn).</p>
+              <p><b>Mẹo:</b> Câu trả lời phải có "thay đổi cụ thể sau đó" — chỉ kể lỗi mà không rút ra bài học là điểm trừ lớn.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Tại sao bạn muốn làm ở công ty này, vị trí này?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Kết nối cụ thể giữa điều bạn tìm hiểu về công ty (sản phẩm, công nghệ, giai đoạn phát triển) với mục tiêu phát triển cá nhân của bạn — không nói chung chung "công ty lớn, môi trường tốt".</p>
+              <p><b>Mẹo:</b> Chuẩn bị trước bằng cách đọc kỹ JD và tìm hiểu sản phẩm công ty — câu trả lời chung chung là dấu hiệu ứng viên không thực sự tìm hiểu trước khi phỏng vấn.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Điểm yếu lớn nhất của bạn là gì?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Chọn một điểm yếu có thật nhưng không phải yêu cầu cốt lõi của vị trí, và quan trọng nhất là nêu được hành động cụ thể bạn đang làm để cải thiện nó — không chỉ liệt kê điểm yếu suông.</p>
+              <p><b>Mẹo:</b> Tránh câu trả lời "giả điểm yếu" kiểu "tôi làm việc quá chăm chỉ" — người phỏng vấn nghe câu này rất nhiều lần và thường đánh giá thấp sự chân thành.</p>
+            </div></details>
+          </li>
+          <li>
+            <span class="qa-q">Kỳ vọng mức lương của bạn là bao nhiêu?</span>
+            <details class="qa-detail"><summary></summary><div class="qa-detail-body">
+              <p><b>Trả lời mẫu:</b> Đưa ra một khoảng (range) dựa trên nghiên cứu thị trường thực tế cho vị trí/level/khu vực đó, thay vì một con số cứng; có thể hỏi ngược lại ngân sách của vị trí trước nếu muốn linh hoạt hơn.</p>
+              <p><b>Mẹo:</b> Luôn tìm hiểu trước mức lương thị trường (levels.fyi, báo cáo lương IT theo năm) — đưa ra con số quá thấp hoặc quá cao so với thị trường đều gây bất lợi cho chính bạn.</p>
+            </div></details>
+          </li>
         </ul>
+        <div class="external-links">
+          <a href="cam-nang-phong-van.html#behavioral">Xem đầy đủ trong Cẩm Nang Phỏng Vấn ↗</a>
+        </div>
       </div>
     </section>
 
@@ -3638,7 +4037,76 @@ Dùng PostgreSQL với Prisma ORM.
       var mini = document.querySelector('.mini-bar[data-for="'+key+'"] > i');
       if(mini) mini.style.width = p + '%';
     });
+
+    refreshNextActions();
   }
+
+  // Gợi ý "việc nên làm tiếp theo": tìm cấp bậc đầu tiên (theo thứ tự
+  // Intern → Junior → Middle → Senior → Staff) còn mục chưa tick, rồi liệt
+  // kê vài mục đầu tiên của cấp đó để không phải tự lướt cả danh sách.
+  var NEXT_ACTION_LEVELS = ['intern', 'junior', 'middle', 'senior', 'staff'];
+  var NEXT_ACTION_LABELS = {
+    intern: 'Intern',
+    junior: 'Junior',
+    middle: 'Middle',
+    senior: 'Senior',
+    staff: 'Staff & Lãnh đạo kỹ thuật'
+  };
+  var nextActionsLabelEl = document.getElementById('next-actions-label');
+  var nextActionsListEl = document.getElementById('next-actions-list');
+
+  function refreshNextActions(){
+    if(!nextActionsListEl) return;
+    var current = null;
+    for(var i = 0; i < NEXT_ACTION_LEVELS.length; i++){
+      var key = NEXT_ACTION_LEVELS[i];
+      var sec = document.querySelector('#panel-roadmap section.leg[data-section="' + key + '"]');
+      if(!sec) continue;
+      var boxes = Array.prototype.slice.call(sec.querySelectorAll('.chk'));
+      if(!boxes.length) continue;
+      var unchecked = boxes.filter(function(cb){ return !cb.checked; });
+      if(unchecked.length){
+        current = { key: key, sec: sec, boxes: boxes, unchecked: unchecked };
+        break;
+      }
+    }
+    nextActionsListEl.innerHTML = '';
+    if(!current){
+      if(nextActionsLabelEl) nextActionsLabelEl.textContent = 'Đã hoàn thành cả 5 cấp bậc';
+      var doneLi = document.createElement('li');
+      doneLi.className = 'next-action-done';
+      doneLi.textContent = 'Xem tiếp mục Phỏng vấn và Định hướng 5–10 năm.';
+      nextActionsListEl.appendChild(doneLi);
+      return;
+    }
+    var doneCount = current.boxes.length - current.unchecked.length;
+    var pct = Math.round(doneCount / current.boxes.length * 100);
+    if(nextActionsLabelEl){
+      nextActionsLabelEl.textContent = 'Đang ở: ' + (NEXT_ACTION_LABELS[current.key] || current.key) + ' (' + pct + '%)';
+    }
+    current.unchecked.slice(0, 5).forEach(function(cb){
+      var itemLi = cb.closest('li');
+      var textEl = itemLi ? itemLi.querySelector('.item-text') : null;
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = '#' + current.sec.id;
+      a.textContent = textEl ? textEl.textContent : 'Xem mục';
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        if(!itemLi) return;
+        var detailsEl = itemLi.querySelector('details.item-detail');
+        if(detailsEl) detailsEl.open = true;
+        itemLi.classList.remove('next-action-flash');
+        void itemLi.offsetWidth;
+        itemLi.classList.add('next-action-flash');
+        itemLi.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(function(){ itemLi.classList.remove('next-action-flash'); }, 1700);
+      });
+      li.appendChild(a);
+      nextActionsListEl.appendChild(li);
+    });
+  }
+
   updateProgress();
 
   var resetBtn = document.getElementById('reset-btn');
@@ -3679,6 +4147,119 @@ Dùng PostgreSQL với Prisma ORM.
   var panels = { roadmap: document.getElementById('panel-roadmap'), knowledge: document.getElementById('panel-knowledge'), bylevel: document.getElementById('panel-bylevel') };
   var navs = { roadmap: document.getElementById('toc-roadmap'), knowledge: document.getElementById('toc-knowledge'), bylevel: document.getElementById('toc-bylevel') };
   var progressBlock = document.getElementById('progress-block');
+  var searchBlock = document.getElementById('search-block');
+  var nextActionsBlock = document.getElementById('next-actions-block');
+
+  // Tìm kiếm nhanh trong tab Lộ trình: lọc theo tiêu đề mục và cả nội dung chi tiết ẩn bên trong.
+  var searchInput = document.getElementById('roadmap-search');
+  var searchClearBtn = document.getElementById('search-clear');
+  var searchStatus = document.getElementById('search-status');
+  var allChecklistLis = Array.prototype.slice.call(document.querySelectorAll('#panel-roadmap ul.checklist > li'));
+
+  function stripDiacritics(s){
+    var combiningMarks = new RegExp(String.fromCharCode(91) + String.fromCharCode(0x0300) + '-' + String.fromCharCode(0x036f) + String.fromCharCode(93), 'g');
+    return s.normalize('NFD').replace(combiningMarks, '').replace(/đ/g, 'd').replace(/Đ/g, 'D');
+  }
+  function normText(s){ return stripDiacritics(s || '').toLowerCase(); }
+
+  // stripDiacritics giữ nguyên độ dài & vị trí ký tự so với chuỗi gốc (mỗi
+  // ký tự có dấu chỉ decompose thành 1 ký tự gốc + dấu tổ hợp bị xoá), nên
+  // chỉ số tìm được trên chuỗi đã chuẩn hoá dùng thẳng được trên chuỗi gốc.
+  function unhighlight(el){
+    var marks = Array.prototype.slice.call(el.querySelectorAll('mark.search-mark'));
+    marks.forEach(function(m){
+      var parent = m.parentNode;
+      if(!parent) return;
+      parent.replaceChild(document.createTextNode(m.textContent), m);
+      parent.normalize();
+    });
+  }
+  function highlightIn(el, q){
+    unhighlight(el);
+    if(!q) return;
+    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+    var nodes = [];
+    var n;
+    while((n = walker.nextNode())){ nodes.push(n); }
+    nodes.forEach(function(tn){
+      var text = tn.nodeValue;
+      var normed = normText(text);
+      var idx = normed.indexOf(q);
+      if(idx === -1) return;
+      var frag = document.createDocumentFragment();
+      var pos = 0;
+      while(idx !== -1){
+        if(idx > pos) frag.appendChild(document.createTextNode(text.slice(pos, idx)));
+        var end = idx + q.length;
+        var mark = document.createElement('mark');
+        mark.className = 'search-mark';
+        mark.appendChild(document.createTextNode(text.slice(idx, end)));
+        frag.appendChild(mark);
+        pos = end;
+        idx = normed.indexOf(q, pos);
+      }
+      if(pos < text.length) frag.appendChild(document.createTextNode(text.slice(pos)));
+      if(tn.parentNode) tn.parentNode.replaceChild(frag, tn);
+    });
+  }
+
+  function runSearch(){
+    var qRaw = searchInput.value;
+    var qTrim = qRaw.trim();
+    var q = normText(qTrim);
+    searchClearBtn.hidden = !qTrim;
+    var matchCount = 0;
+    allChecklistLis.forEach(function(li){
+      var labelEl = li.querySelector('.item-text');
+      var detailBody = li.querySelector('.item-detail-body');
+      var detailsEl = li.querySelector('details.item-detail');
+      var labelText = normText(labelEl ? labelEl.textContent : '');
+      var detailText = normText(detailBody ? detailBody.textContent : '');
+      var isMatch = true, detailOnlyMatch = false;
+      if(q){
+        var labelMatch = labelText.indexOf(q) !== -1;
+        detailOnlyMatch = !labelMatch && detailText.indexOf(q) !== -1;
+        isMatch = labelMatch || detailOnlyMatch;
+      }
+      li.classList.toggle('search-hidden', !isMatch);
+      if(isMatch) matchCount++;
+      if(detailsEl){
+        if(detailOnlyMatch){
+          detailsEl.open = true;
+          detailsEl.classList.add('search-auto-open');
+        } else if(detailsEl.classList.contains('search-auto-open')){
+          detailsEl.open = false;
+          detailsEl.classList.remove('search-auto-open');
+        }
+      }
+      if(labelEl) highlightIn(labelEl, q);
+      if(detailBody) highlightIn(detailBody, q);
+    });
+    document.querySelectorAll('#panel-roadmap .waypoint').forEach(function(wp){
+      var lis = wp.querySelectorAll('ul.checklist > li');
+      if(!lis.length){ wp.classList.remove('search-empty'); return; }
+      var anyVisible = Array.prototype.some.call(lis, function(li){ return !li.classList.contains('search-hidden'); });
+      wp.classList.toggle('search-empty', !anyVisible);
+    });
+    if(q){
+      searchStatus.hidden = false;
+      searchStatus.textContent = matchCount + ' mục khớp';
+    } else {
+      searchStatus.hidden = true;
+    }
+  }
+  if(searchInput){
+    var searchDebounceTimer = null;
+    searchInput.addEventListener('input', function(){
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(runSearch, 120);
+    });
+    searchClearBtn.addEventListener('click', function(){
+      searchInput.value = '';
+      runSearch();
+      searchInput.focus();
+    });
+  }
 
   // Nhớ tab đang xem + vị trí cuộn của từng tab, để chuyển qua lại không bị mất chỗ.
   var SCROLL_KEY = 'laban-fullstack-scroll-v1';
@@ -3719,6 +4300,7 @@ Dùng PostgreSQL với Prisma ORM.
     Object.keys(panels).forEach(function(k){ if(panels[k]) panels[k].hidden = (k !== tab); });
     Object.keys(navs).forEach(function(k){ if(navs[k]) navs[k].hidden = (k !== tab); });
     if(progressBlock) progressBlock.hidden = (tab !== 'roadmap');
+    if(nextActionsBlock) nextActionsBlock.hidden = (tab !== 'roadmap');
     if(resetBtn) resetBtn.hidden = (tab !== 'roadmap');
     scrollState.activeTab = tab;
     saveScrollState();
